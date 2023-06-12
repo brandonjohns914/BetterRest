@@ -32,28 +32,44 @@ struct ContentView: View {
         {
             Form
             {
-                VStack(alignment: .leading, spacing: 0)
+                //VStack(alignment: .leading, spacing: 0)
+                Section
                 {
-                    Text("When do you want to wake up?")
-                        .font(.headline)
+                    //Text("When do you want to wake up?").font(.headline)
                     
                     DatePicker("Please enter a time", selection: $wakeUp, displayedComponents: .hourAndMinute)
                         .labelsHidden()
+                }header: {
+                    Text("When do you want to wake up?").font(.headline)
                 }
-                VStack(alignment: .leading, spacing: 0)
+                Section
                 {
-                    Text("Desired amount of sleep")
-                        .font(.headline)
+                   
                     
                     Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
                 }
-                VStack(alignment: .leading, spacing: 0)
+            header: {
+                Text("Desired amount of sleep")
+                    .font(.headline)
+            }
+                Section
+                {
+                    
+                    Picker("Number of cups of coffee", selection: $coffeeAmount)
+                    {
+                        ForEach(1..<21)
+                        {
+                            Text("\($0) Cups")
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                        .labelsHidden()
+                    //Stepper(coffeeAmount == 1 ? "1 cup" : "\(coffeeAmount) cups", value: $coffeeAmount, in: 1...20)
+                }
+            header:
                 {
                     Text("Daily Coffee Intake")
-                        .font(.headline)
-                    
-                    Stepper(coffeeAmount == 1 ? "1 cup" : "\(coffeeAmount) cups", value: $coffeeAmount, in: 1...20)
-                }
+                    .font(.headline)}
             }
             .navigationTitle("BetterRest")
             .toolbar {
